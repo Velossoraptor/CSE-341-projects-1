@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router(); // Create a router instance
 // ^ was typing express().Router() which is incorrect, should be express.Router() (no paren after express)
 
-router.get("/", (req, res) => {
-    res.send("Hello World!");
-});
+const usersController = require("../controllers/users");
 
-router.use("/users", require("./users")); // Routes all /users requests to users.js
+router.get("/", usersController.getAll);
+
+router.get("/:id", usersController.getSingle);
 
 module.exports = router;

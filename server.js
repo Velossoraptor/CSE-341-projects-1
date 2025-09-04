@@ -1,13 +1,23 @@
 const express = require('express');
 const app = express();
+const mongodb = require('./db/database');
 
-// Just visciously gutted everything, need to restart from scratch. 
-// Get project to display hello world and freaking COMMIT for the love
+// ITS WORKINGGGGG!!!!
+// YIPPEE YIPPEE
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3300;
 
 app.use("/", require("./routes")); // Routes all requests to routes folder
 
-app.listen(PORT, () => { // Monitors port 3000 on local host
-    console.log(`Server is running on port ${PORT}`); //confirmation message
+mongodb.initDb((err) =>{
+    if(err){
+        console.log(err);
+    }
+    else{
+        app.listen(PORT, () => { // Monitors port 3000 on local host
+            console.log(`Server is running on port ${PORT}`); //confirmation message
+        });
+    }
 });
+
+
