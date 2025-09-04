@@ -1,23 +1,32 @@
 # Base URL for testing
-GET http://localhost:3300/
+GET http://localhost:3300
 # Should return 'Hello World!'
 
+###
+
 # Test getting all contacts
-GET http://localhost:3300/contacts/
+GET http://localhost:3300/contacts
 # Should return a list of all contacts in JSON format
 
-# Test getting a single contact by ID
+###
 
-GET http://localhost:3300/contacts/68b88907a4fa9111fd86ffae/
+# Test getting a single contact by ID
+GET http://localhost:3300/contacts/68b88907a4fa9111fd86ffae
 # Should return Christopher McDonald contact
+
+###
 
 # Test getting a single contact by ID
 GET http://localhost:3300/contacts/68b88911a4fa9111fd86ffaf
 # Should return Nathan Maynes contact
 
+###
+
 # Test getting a single contact by ID
 GET http://localhost:3300/contacts/68b88918a4fa9111fd86ffb0
 # Should return Niko Strong contact
+
+###
 
 # Test getting a single contact by ID
 GET http://localhost:3300/contacts/68b8891fa4fa9111fd86ffb1
