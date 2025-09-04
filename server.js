@@ -1,6 +1,7 @@
+// Adding all necessary modules
 const express = require('express');
 const app = express();
-const mongodb = require('./db/database');
+const mongodb = require('./db/connect');
 
 // ITS WORKINGGGGG!!!!
 // YIPPEE YIPPEE
