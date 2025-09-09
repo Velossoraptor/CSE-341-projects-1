@@ -5,7 +5,7 @@
     "description": "Description",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "localhost:3300",
   "basePath": "/",
   "schemes": [
     "http"
@@ -13,20 +13,30 @@
   "paths": {
     "/": {
       "get": {
-        "description": "",
+        "description": "Landing page",
         "produces": [
           "application/json"
         ],
         "responses": {
           "200": {
             "description": "OK"
+          }
+        }
+      }
+    },
+    "/api-docs": {
+      "get": {
+        "description": "This page, shows api-documentation",
+        "responses": {
+          "default": {
+            "description": ""
           }
         }
       }
     },
     "/contacts/": {
       "get": {
-        "description": "",
+        "description": "Shows all contacts",
         "produces": [
           "application/json"
         ],
@@ -35,11 +45,39 @@
             "description": "OK"
           }
         }
+      },
+      "post": {
+        "description": "Accessed through any post request to add a new contact",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "parameters": [
+      {
+        "in": "body",
+        "name": "body",
+        "required": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "firstName": { "type": "string", "example": "Alice" },
+            "lastName": { "type": "string", "example": "Smith" },
+            "email": { "type": "string", "example": "alice@example.com" },
+            "favoriteColor": { "type": "string", "example": "blue" },
+            "birthday": { "type": "string", "example": "1990-01-01" }
+          }
+        }
+      }
+    ]
       }
     },
     "/contacts/{id}": {
       "get": {
-        "description": "",
+        "description": "Shows a specific contact by their id",
         "produces": [
           "application/json"
         ],
@@ -56,14 +94,55 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/{id}": {
-      "get": {
-        "description": "",
-        "produces": [
-          "application/json"
+      },
+      "put": {
+        "description": "Updates a specific contact by their id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "favoriteColor": {
+                  "example": "any"
+                },
+                "birthday": {
+                  "example": "any"
+                }
+              }
+            }
+          }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "description": "Deletes a specific contact by their id",
         "parameters": [
           {
             "name": "id",
@@ -75,6 +154,12 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
