@@ -9,9 +9,11 @@ Content-Type: application/json
     "birthday": "2000-01-01"
 }
 
+# Should create a new contact and return the new contact's ID
+
 ###
 
-PUT http://localhost:3300/contacts/68c06e60f54133bb1160d4a7
+PUT http://localhost:3300/contacts/68c07a0e9e4588ae559da814
 Content-Type: application/json
 
 {
@@ -22,6 +24,11 @@ Content-Type: application/json
     "birthday": "1999-12-31"
 }
 
+# Should update the contact with the specified ID
+# Replace the ID with an actual contact ID to test
+
 ###
 
-DELETE http://localhost:3300/contacts/68c06e66f54133bb1160d4a8
+DELETE http://localhost:3300/contacts/68c07a0e9e4588ae559da814
+# Should delete the contact with the specified ID
+# Replace the ID with an actual contact ID to test
