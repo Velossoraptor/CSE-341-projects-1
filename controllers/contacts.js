@@ -19,7 +19,19 @@ const getSingle = async (req, res) =>{ // Async function to get a single contact
     });
 };
 
+const createNew = async (req, res) =>{ // Async function to create a new contact
+    const collection = await mongodb.getDb().db("Test").collection("contacts");
+    collection.insertOne(req.body, (error, result)=>{
+        if(error){
+            return res.status(500).send(error);
+        }
+        res.send(result.result);
+    });
+    console.log(req.body);
+}
+
 module.exports = {
     getAll,
     getSingle,
+    createNew,
 };

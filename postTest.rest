@@ -1,0 +1,10 @@
+POST http://localhost:3300/contacts
+Content-Type: application/json
+
+{
+    "firstName": "Test",
+    "lastName": "User",
+    "email": "test@gmail.com",
+    "favoriteColor": "yellow",
+    "birthday": "2000-01-01"
+}
