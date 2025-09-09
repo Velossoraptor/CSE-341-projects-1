@@ -28,6 +28,7 @@ const createNew = async (req, res) =>{ // Async function to create a new contact
         res.send(result.result);
     });
     console.log(req.body);
+    // Need to return new contact id in response body
 }
 
 const updateContact = async (req, res) =>{ // Async function to update a contact by ID
@@ -45,6 +46,15 @@ const updateContact = async (req, res) =>{ // Async function to update a contact
     );
     console.log(req.body);
     console.log("updated contact " + userIdToModify);
+    // Need to return successful http code in response
+}
+
+const deleteContact = async (req, res) =>{ // Async function to delete a contact by ID
+    const userIdToDelete = new ObjectId(req.params.id);
+    const collection = await mongodb.getDb().db("Test").collection("contacts");
+    collection.deleteOne({_id: userIdToDelete});
+    console.log("deleted contact " + userIdToDelete);
+    // Need to return successful http code in response
 }
 
 module.exports = {
@@ -52,4 +62,5 @@ module.exports = {
     getSingle,
     createNew,
     updateContact,
+    deleteContact,
 };

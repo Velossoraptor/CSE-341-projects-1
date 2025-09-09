@@ -21,3 +21,7 @@ Content-Type: application/json
     "favoriteColor": "purple",
     "birthday": "1999-12-31"
 }
+
+###
+
+DELETE http://localhost:3300/contacts/68c06e66f54133bb1160d4a8

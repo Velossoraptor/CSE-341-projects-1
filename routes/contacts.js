@@ -15,4 +15,6 @@ router.post('/', contactsController.createNew); // Routes all POST /contacts req
 
 router.put('/:id', contactsController.updateContact); // Routes all PUT /contacts/:id-to-modify requests to contacts.js updateContact function
 
+router.delete('/:id', contactsController.deleteContact); // Routes all DELETE /contacts/:id-to-delete requests to contacts.js deleteContact function
+
 module.exports = router;
