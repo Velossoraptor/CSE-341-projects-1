@@ -13,6 +13,6 @@ router.get('/:id', contactsController.getSingle); // Routes all /contacts/:id re
 
 router.post('/', contactsController.createNew); // Routes all POST /contacts requests to contacts.js createNew function
 
-
+router.put('/:id', contactsController.updateContact); // Routes all PUT /contacts/:id-to-modify requests to contacts.js updateContact function
 
 module.exports = router;

@@ -30,8 +30,26 @@ const createNew = async (req, res) =>{ // Async function to create a new contact
     console.log(req.body);
 }
 
+const updateContact = async (req, res) =>{ // Async function to update a contact by ID
+    const userIdToModify = new ObjectId(req.params.id);
+    const collection = await mongodb.getDb().db("Test").collection("contacts");
+    collection.updateOne(
+        {_id: userIdToModify},
+        {$set: {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            favoriteColor: req.body.favoriteColor,
+            birthday: req.body.birthday
+        }}
+    );
+    console.log(req.body);
+    console.log("updated contact " + userIdToModify);
+}
+
 module.exports = {
     getAll,
     getSingle,
     createNew,
+    updateContact,
 };

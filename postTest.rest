@@ -8,3 +8,16 @@ Content-Type: application/json
     "favoriteColor": "yellow",
     "birthday": "2000-01-01"
 }
+
+###
+
+PUT http://localhost:3300/contacts/68c06e60f54133bb1160d4a7
+Content-Type: application/json
+
+{
+    "firstName": "Updated",
+    "lastName": "User",
+    "email": "updated@gmail.com",
+    "favoriteColor": "purple",
+    "birthday": "1999-12-31"
+}
