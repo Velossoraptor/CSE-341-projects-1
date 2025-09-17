@@ -11,6 +11,10 @@ const PORT = process.env.PORT || 3300;
 
 app.use("/", require("./routes")); // Routes all requests to routes folder
 
+process.on('uncaughtException', (err,origin)=>{
+    console.log(process.stderr.fd, `Caught Exception: ${err}\n`+`Exception origin l${origin}`);
+});
+
 mongodb.initDb((err) =>{
     if(err){
         console.log(err);

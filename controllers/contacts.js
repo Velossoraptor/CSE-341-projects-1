@@ -4,12 +4,18 @@ const ObjectId = require('mongodb').ObjectId;
 
 const getAll = async (req, res) => {
   // Async function to get all contacts
-  const result = await mongodb.getDb().db('Test').collection('contacts').find();
-  result.toArray().then((contacts) => {
-    // Convert the result to an array
-    res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(contacts); // Return the contacts as JSON with success status
-  });
+  const result = await mongodb
+    .getDb()
+    .db('Test')
+    .collection('contacts')
+    .find()
+    .toArray((err, lists) => {
+      if (err) {
+        res.status(400).json({ message: err });
+      }
+      res.setHeader('Content-Type', 'application/json');
+      res.status(200).json(contacts); // Return the contacts as JSON with success status
+    });
 };
 
 const getSingle = async (req, res) => {
@@ -19,12 +25,14 @@ const getSingle = async (req, res) => {
     .getDb()
     .db('Test')
     .collection('contacts')
-    .find({ _id: userId }); // Find db called Test, collection called contacts, find by _id
-  result.toArray().then((contacts) => {
-    // Convert the result to an array
-    res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(contacts[0]); // Return the first contact found and success status
-  });
+    .find({ _id: userId })
+    .toArray((err, result) => {
+      if (err) {
+        res.status(400).json({ message: err });
+      }
+      res.setHeader('Content-Type', 'application/json');
+      res.status(200).json(contacts[0]); // Return the first contact found and success status
+    });
 };
 
 const createNew = async (req, res) => {
@@ -65,8 +73,10 @@ const updateContact = async (req, res) => {
         },
       }
     );
-    if(result.matchedCount === 0){
-        return res.status(404).send('Error 404: No contact found with id: ' + req.params.id);
+    if (result.matchedCount === 0) {
+      return res
+        .status(404)
+        .send('Error 404: No contact found with id: ' + req.params.id);
     }
     res.status(200).send('Updated Id:' + req.params.id); // Success status and return the ID of the updated contact
     console.log(req.body);
