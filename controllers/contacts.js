@@ -2,36 +2,53 @@ const mongodb = require('../db/connect'); // Import the database connection modu
 
 const ObjectId = require('mongodb').ObjectId;
 
-const getAll =  (req, res) => {
-  // Async function to get all contacts
-  mongodb
+const getAll = (req, res) => {
+  console.log("getall");
+  mongodb // doesnt work
     .getDb()
-    .db('Test')
+    .db("Test")
     .collection('contacts')
     .find()
     .toArray((err, lists) => {
+      console.log("start to array");
       if (err) {
-        return res.status(400).json({ message: err });
+        console.log(err);
+        res.status(400).json({ message: err });
       }
+      console.log("no error");
       res.setHeader('Content-Type', 'application/json');
-      res.status(200).json(lists); // Return the contacts as JSON with success status
+      res.status(200).json(lists);
     });
 };
 
+// >>>> Does work <<<<<
+// const getAll = async (req, res) => {
+//   // Async function to get all contacts
+//   const result = await mongodb.getDb().db('Test').collection('contacts').find();
+//   result.toArray().then((contacts) => {
+//     // Convert the result to an array
+//     res.setHeader('Content-Type', 'application/json');
+//     res.status(200).json(contacts); // Return the contacts as JSON with success status
+//   });
+// };
+
 const getSingle = (req, res) => {
-  // Async function to get a single contact by ID
+  if (!ObjectId.isValid(req.params.id)) {
+    res.status(400).json('Must use a valid contact id to find a contact.');
+  }
   const userId = new ObjectId(req.params.id);
   mongodb
     .getDb()
-    .db('Test')
+    .db()
     .collection('contacts')
     .find({ _id: userId })
     .toArray((err, result) => {
+
       if (err) {
-        return res.status(400).json({ message: err });
+        res.status(400).json({ message: err });
       }
       res.setHeader('Content-Type', 'application/json');
-      res.status(200).json(result[0]); // Return the first contact found and success status
+      res.status(200).json(result[0]);
     });
 };
 

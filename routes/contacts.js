@@ -1,8 +1,10 @@
+console.log("used contacts.js");
 const express = require('express');
 const router = express.Router(); // Create a router instance
 // ^ was typing express().Router() which is incorrect, should be express.Router() (no paren after express)
 const bodyParser = require('body-parser'); // Import body-parser to parse JSON request bodies
 const validation = require("../middleware/validate");
+
 
 router.use(bodyParser.json()); // Use body-parser middleware to parse JSON
 
