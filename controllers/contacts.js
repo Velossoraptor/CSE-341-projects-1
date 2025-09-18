@@ -2,53 +2,42 @@ const mongodb = require('../db/connect'); // Import the database connection modu
 
 const ObjectId = require('mongodb').ObjectId;
 
+// works :)
 const getAll = (req, res) => {
-  console.log("getall");
-  mongodb // doesnt work
+  console.log("getallstarted");
+  mongodb 
     .getDb()
     .db("Test")
     .collection('contacts')
     .find()
-    .toArray((err, lists) => {
-      console.log("start to array");
-      if (err) {
-        console.log(err);
-        res.status(400).json({ message: err });
-      }
-      console.log("no error");
+    .toArray()
+    .then((lists)=>{
       res.setHeader('Content-Type', 'application/json');
       res.status(200).json(lists);
+    })
+    .catch((err)=>{
+     res.status(400).json({  message: err  });
     });
 };
 
-// >>>> Does work <<<<<
-// const getAll = async (req, res) => {
-//   // Async function to get all contacts
-//   const result = await mongodb.getDb().db('Test').collection('contacts').find();
-//   result.toArray().then((contacts) => {
-//     // Convert the result to an array
-//     res.setHeader('Content-Type', 'application/json');
-//     res.status(200).json(contacts); // Return the contacts as JSON with success status
-//   });
-// };
-
 const getSingle = (req, res) => {
+  console.log("getsinglestarted");
   if (!ObjectId.isValid(req.params.id)) {
     res.status(400).json('Must use a valid contact id to find a contact.');
   }
   const userId = new ObjectId(req.params.id);
   mongodb
     .getDb()
-    .db()
+    .db("Test")
     .collection('contacts')
     .find({ _id: userId })
-    .toArray((err, result) => {
-
-      if (err) {
-        res.status(400).json({ message: err });
-      }
-      res.setHeader('Content-Type', 'application/json');
+    .toArray()
+    .then((result)=>{
+      res.setHeader('Content-Type','application/json');
       res.status(200).json(result[0]);
+    })
+    .catch((err)=>{
+      res.status(400).json({  message: err  });
     });
 };
 
